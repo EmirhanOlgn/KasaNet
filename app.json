@@ -17,6 +17,7 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.emirhanolgn.kasanet",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -30,6 +31,12 @@
     "plugins": [
       "expo-font",
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "d23b7d2e-d976-42b7-98d1-ac4da4771211"
+      }
+    }
   }
 }
