@@ -1,8 +1,25 @@
-# KasaNet
+<p align="center"><img src=".github/assets/app_icon_rounded.png" width="200px" alt="logo"/></p>
 
-Küçük işletmeler için günlük gelir/gider takibi yapan Türkçe mobil uygulama. React Native + Expo ile geliştirilmiştir.
+<h1 align="center">KasaNet</h1>
+<p align="center"><strong>Küçük işletmeler için günlük gelir/gider takibi yapan mobil uygulama</strong></p>
 
-## Özellikler
+
+<p align="center">
+  <a href="https://www.apache.org/licenses/">
+    <img alt="License" src="https://img.shields.io/github/license/emirhanolgn/KasaNet?color=success&style=for-the-badge">
+  </a>
+
+  <a href="https://github.com/emirhanolgn/KasaNet/issues">
+    <img alt="GitHub Issues" src="https://img.shields.io/github/issues/emirhanolgn/KasaNet?style=for-the-badge">
+  </a>
+
+  <a href="https://github.com/emirhanolgn/KasaNet/stargazers">
+    <img alt="GitHub Stars" src="https://img.shields.io/github/stars/emirhanolgn/KasaNet?style=for-the-badge">
+  </a>
+</p>
+
+
+## ✨ Özellikler
 
 - Birden fazla işletme (dükkân) yönetimi
 - Takvim üzerinden günlük işlem girişi (gelir/gider ayrı ayrı)
@@ -13,7 +30,7 @@ Küçük işletmeler için günlük gelir/gider takibi yapan Türkçe mobil uygu
 - Tüm veriler cihazda lokal saklanır — sunucu gerektirmez
 - Tam Türkçe arayüz, Nunito yazı tipi
 
-## Teknolojiler
+## 🛠️ Teknolojiler
 
 - Expo SDK 54 / React Native 0.81
 - TypeScript (strict mode)
@@ -24,13 +41,13 @@ Küçük işletmeler için günlük gelir/gider takibi yapan Türkçe mobil uygu
 - react-native-chart-kit (grafikler)
 - date-fns (Türkçe locale)
 
-## Kurulum
+## 💡 Kurulum
 
 ```bash
 npm install --legacy-peer-deps
 ```
 
-## Çalıştırma
+## 🚀 Çalıştırma
 
 Aynı Wi-Fi ağındaysanız:
 
@@ -38,15 +55,13 @@ Aynı Wi-Fi ağındaysanız:
 npx expo start
 ```
 
-Farklı ağdaysanız (telefon ↔ PC):
+Farklı ağdaysanız
 
 ```bash
 npx expo start --tunnel
 ```
 
-Telefonunuzdan **Expo Go** uygulamasıyla QR kodu okutun.
-
-## Proje Yapısı
+## 📁 Proje Yapısı
 
 ```
 app/            # Expo Router sayfaları
@@ -58,6 +73,6 @@ utils/          # Formatlayıcılar, validatörler
 assets/         # Fontlar, ikonlar
 ```
 
-## Lisans
+## 📄 Lisans
 
 Bu projenin lisansı [LICENSE](./LICENSE) dosyasında belirtilmiştir.
