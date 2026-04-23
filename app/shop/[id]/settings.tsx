@@ -14,6 +14,7 @@ import Card from '../../../components/ui/Card';
 import Input from '../../../components/ui/Input';
 import Button from '../../../components/ui/Button';
 import CategoryManager from '../../../components/CategoryManager';
+import ReminderSettings from '../../../components/ReminderSettings';
 import { useShopStore } from '../../../store/useShopStore';
 import { getShopFileInfo } from '../../../services/fileManager';
 import { colors, typography, spacing } from '../../../utils/constants';
@@ -23,7 +24,7 @@ export default function SettingsScreen() {
   const router = useRouter();
   const {
     activeShop, loading, openShop,
-    updateMeta, updateCategories, exportShop, deleteShop,
+    updateMeta, updateCategories, updateReminder, exportShop, deleteShop,
   } = useShopStore();
 
   const [name, setName] = useState('');
@@ -112,6 +113,14 @@ export default function SettingsScreen() {
             placeholder="Opsiyonel" />
           <Button title="Kaydet" onPress={handleSaveMeta} size="md" />
         </Card>
+
+        {activeShop && (
+          <ReminderSettings
+            shopName={activeShop.meta.name}
+            value={activeShop.meta.reminder}
+            onSave={updateReminder}
+          />
+        )}
 
         {activeShop && (
           <CategoryManager

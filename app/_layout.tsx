@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
@@ -12,6 +12,8 @@ import {
 import * as SplashScreen from 'expo-splash-screen';
 import { View } from 'react-native';
 import { colors } from '../utils/constants';
+import { initNotifications, syncAllReminders } from '../services/notifications';
+import { listShops } from '../services/fileManager';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -23,6 +25,18 @@ export default function RootLayout() {
     Nunito_700Bold,
     Nunito_800ExtraBold,
   });
+
+  useEffect(() => {
+    (async () => {
+      try {
+        await initNotifications();
+        const shops = await listShops();
+        await syncAllReminders(shops);
+      } catch {
+        // bildirim senkronizasyon hatası sessizce yut
+      }
+    })();
+  }, []);
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {

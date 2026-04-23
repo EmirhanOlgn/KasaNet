@@ -26,13 +26,30 @@ export function isValidDayEntry(entry: unknown): entry is DayEntry {
 export function isValidShopMeta(meta: unknown): meta is ShopMeta {
   if (!meta || typeof meta !== 'object') return false;
   const m = meta as Record<string, unknown>;
-  return (
-    typeof m.id === 'string' &&
-    m.id.length > 0 &&
-    typeof m.name === 'string' &&
-    m.name.length > 0 &&
-    typeof m.currency === 'string'
-  );
+  if (
+    typeof m.id !== 'string' ||
+    m.id.length === 0 ||
+    typeof m.name !== 'string' ||
+    m.name.length === 0 ||
+    typeof m.currency !== 'string'
+  ) {
+    return false;
+  }
+  // reminder alanı isteğe bağlı
+  if (m.reminder !== undefined) {
+    const r = m.reminder as Record<string, unknown>;
+    if (
+      typeof r !== 'object' ||
+      typeof r.enabled !== 'boolean' ||
+      typeof r.hour !== 'number' ||
+      typeof r.minute !== 'number' ||
+      !Array.isArray(r.days) ||
+      !r.days.every((d: unknown) => typeof d === 'number' && d >= 1 && d <= 7)
+    ) {
+      return false;
+    }
+  }
+  return true;
 }
 
 /** CategoryConfig doğrulama */

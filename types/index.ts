@@ -37,6 +37,18 @@ export interface ShopMeta {
   currency: string;
   owner?: string;
   description?: string;
+  reminder?: ReminderConfig;
+}
+
+/** Günlük bildirim hatırlatma ayarı */
+export interface ReminderConfig {
+  enabled: boolean;
+  /** 0-23 */
+  hour: number;
+  /** 0-59 */
+  minute: number;
+  /** Hangi günler: 1=Pzt ... 7=Paz */
+  days: number[];
 }
 
 /** Kategori yapılandırması */

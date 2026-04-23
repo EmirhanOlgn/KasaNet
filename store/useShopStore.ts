@@ -1,6 +1,7 @@
 import { create } from 'zustand';
-import type { ShopFile, ShopMeta, DayEntry } from '../types';
+import type { ShopFile, ShopMeta, DayEntry, ReminderConfig } from '../types';
 import * as fm from '../services/fileManager';
+import * as notif from '../services/notifications';
 
 interface ShopState {
   /** Tüm dükkan meta listesi */
@@ -19,6 +20,7 @@ interface ShopState {
   updateEntry: (entry: DayEntry) => Promise<void>;
   deleteEntry: (date: string) => Promise<void>;
   updateMeta: (updates: Partial<Omit<ShopMeta, 'id'>>) => Promise<void>;
+  updateReminder: (config: ReminderConfig | null) => Promise<void>;
   updateCategories: (income: string[], expense: string[]) => Promise<void>;
   exportShop: (shopId: string) => Promise<void>;
   importShop: () => Promise<void>;
@@ -74,6 +76,7 @@ export const useShopStore = create<ShopState>((set, get) => ({
     set({ loading: true, error: null });
     try {
       fm.deleteShop(shopId);
+      await notif.cancelShopReminders(shopId).catch(() => {});
       const { activeShop } = get();
       if (activeShop?.meta.id === shopId) {
         set({ activeShop: null });
@@ -127,6 +130,31 @@ export const useShopStore = create<ShopState>((set, get) => ({
     } catch (e) {
       set({
         error: e instanceof Error ? e.message : 'Bilgiler güncellenemedi',
+      });
+    }
+  },
+
+  updateReminder: async (config) => {
+    const { activeShop } = get();
+    if (!activeShop) return;
+    try {
+      await fm.updateShopMeta(activeShop.meta.id, {
+        reminder: config ?? undefined,
+      });
+      if (config && config.enabled && config.days.length > 0) {
+        await notif.scheduleShopReminders(
+          activeShop.meta.id,
+          activeShop.meta.name,
+          config,
+        );
+      } else {
+        await notif.cancelShopReminders(activeShop.meta.id);
+      }
+      await get().openShop(activeShop.meta.id);
+      await get().loadShops();
+    } catch (e) {
+      set({
+        error: e instanceof Error ? e.message : 'Hatırlatma ayarlanamadı',
       });
     }
   },
