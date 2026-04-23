@@ -1,4 +1,4 @@
-<p align="center"><img src=".github/assets/app_icon_rounded.png" width="200px" alt="logo"/></p>
+<p align="center"><img src=".github/assets/KasaNet.png" width="200px" alt="logo"/></p>
 
 <h1 align="center">KasaNet</h1>
 <p align="center"><strong>Küçük işletmeler için günlük gelir/gider takibi yapan mobil uygulama</strong></p>
